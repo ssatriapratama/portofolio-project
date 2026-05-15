@@ -1,23 +1,84 @@
-/* css/responsive.css */
+/* ============================================================
+   responsive.css — Preserve exact design on all screen sizes
+   Mobile-first adaptive layout WITHOUT changing colors/style
+   ============================================================ */
+
+/* ─────────────────────────────────────────────────────────
+   GLOBAL: Container & Section padding
+───────────────────────────────────────────────────────── */
 @media screen and (max-width: 992px) {
+  .container {
+    padding: 0 24px;
+  }
+  .section {
+    padding: 110px 0 60px;
+  }
   .section-title {
     font-size: 2.2rem;
   }
 }
 
 @media screen and (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  .section {
+    padding: 100px 0 50px;
+    min-height: auto;
+  }
+  .section-title {
+    font-size: 1.9rem;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  .section-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   NAVBAR — Mobile drawer, preserving glass & neon style
+───────────────────────────────────────────────────────── */
+@media screen and (max-width: 768px) {
+  /* Show hamburger */
+  .hamburger {
+    display: block;
+  }
+
+  /* Nav container: logo left, buttons right */
+  .nav-container {
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+
+  .nav-container > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Slide-in drawer — keeps glass background + theme colors */
   .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 250px;
+    width: 260px;
     height: 100vh;
     background: var(--bg-surface);
+    border-left: var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: 0.5s ease;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    gap: 28px;
+    transition: right 0.4s ease;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
     z-index: 1000;
   }
 
@@ -25,29 +86,473 @@
     right: 0;
   }
 
-  .hamburger {
-    display: block;
-  }
-  
-  .theme-toggle {
-    margin-top: 20px;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .btn {
-    padding: 10px 24px;
+  /* Nav link font stays same, just spaced vertically */
+  .nav-links a {
+    font-size: 1.1rem;
   }
 }
 
-@media screen and (max-width: 576px) {
-  .section-title {
-    font-size: 1.8rem;
+/* ─────────────────────────────────────────────────────────
+   HOME PAGE (index.html)
+───────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media screen and (max-width: 992px) {
+  .hero-section {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 50px;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    min-height: auto;
+    justify-content: flex-start;
   }
-  
-  .section {
-    padding: 100px 0 50px;
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .greeting,
+  .name,
+  .profession,
+  .description {
+    text-align: center;
+  }
+
+  .profession {
+    justify-content: center;
+  }
+
+  .hero-btns {
+    justify-content: center;
+  }
+
+  .hero-image {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Hero card preserves neon-glow border and glass exactly */
+  .hero-card {
+    width: 300px;
+    height: 370px;
+  }
+
+  .name {
+    font-size: 3.2rem;
+  }
+
+  /* Loader stays centered */
+  .loader-container {
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 576px) {
+  .hero-section {
+    gap: 35px;
+    padding-top: 110px;
+  }
+
+  .name {
+    font-size: 2.4rem;
+  }
+
+  .profession {
+    font-size: 1.5rem;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .description {
+    font-size: 1rem;
+    padding: 0 5px;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-card {
+    width: 250px;
+    height: 310px;
+  }
+
+  /* Neon circles scale down */
+  .neon-circle-1 {
+    width: 220px;
+    height: 220px;
+  }
+
+  .neon-circle-2 {
+    width: 160px;
+    height: 160px;
+  }
+
+  .loader-progress {
+    width: 200px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   PROFILE PAGE (profile.html)
+───────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media screen and (max-width: 992px) {
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  /* Flip card stays same glass+neon style, just centered */
+  .flip-card {
+    margin: 0 auto;
+    width: 320px;
+    height: 400px;
+    flex-shrink: 0;
+  }
+
+  .about-content {
+    text-align: center;
+    width: 100%;
+  }
+
+  .about-content h2 {
+    text-align: center;
+  }
+
+  /* Biodata list keeps left-aligned text for readability */
+  .biodata-list {
+    display: inline-block;
+    text-align: left;
+  }
+
+  /* Skills grid adapts columns, keeps card glass style */
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 18px;
+  }
+
+  .skill-card {
+    padding: 22px 15px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 576px) {
+  .flip-card {
+    width: 280px;
+    height: 360px;
+  }
+
+  .skill-filters {
+    gap: 8px;
+    padding: 0 4px;
+  }
+
+  .skill-filter-btn {
+    padding: 7px 13px;
+    font-size: 0.82rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .skill-card {
+    padding: 18px 12px;
+  }
+
+  .skill-icon {
+    font-size: 2.2rem;
+  }
+
+  .skill-title {
+    font-size: 0.88rem;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .about-content h2 {
+    font-size: 1.6rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   EXPERIENCE PAGE (experience.html)
+───────────────────────────────────────────────────────── */
+
+/* Mobile: Timeline becomes single-column */
+@media screen and (max-width: 768px) {
+  /* Center line moves to far left */
+  .timeline::after {
+    left: 20px;
+    margin-left: 0;
+  }
+
+  /* All items full width, indented past the line */
+  .timeline-item {
+    width: 100% !important;
+    left: 0 !important;
+    padding-left: 60px;
+    padding-right: 15px;
+  }
+
+  /* Hide the arrow connectors */
+  .timeline-item::before {
+    display: none;
+  }
+
+  /* Move dots to left side */
+  .timeline-item::after {
+    left: 10px !important;
+    right: auto !important;
+  }
+
+  /* Timeline card keeps glass + neon effect */
+  .timeline-content {
+    padding: 18px 20px;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.15rem;
+  }
+
+  .timeline-content h4 {
+    font-size: 0.95rem;
+  }
+
+  .timeline-date {
+    font-size: 0.85rem;
+    padding: 4px 14px;
+  }
+
+  /* Documentation image scales down */
+  .experience-img {
+    max-height: 200px;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .timeline-item {
+    padding-left: 50px;
+    padding-right: 10px;
+  }
+
+  .timeline::after {
+    left: 15px;
+  }
+
+  .timeline-item::after {
+    left: 5px !important;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   PORTFOLIO PAGE (portfolio.html)
+───────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media screen and (max-width: 992px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 576px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .portfolio-img {
+    height: 200px;
+  }
+
+  /* Filter buttons wrap neatly */
+  .portfolio-filters {
+    gap: 8px;
+    padding: 0 4px;
+  }
+
+  .filter-btn {
+    padding: 7px 15px;
+    font-size: 0.85rem;
+  }
+
+  /* Modal stays glass-style, adapts to screen */
+  .modal-body {
+    padding: 24px 16px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-desc {
+    font-size: 0.95rem;
+  }
+
+  /* Stack modal buttons vertically */
+  .modal-btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-btns .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-content {
+    max-height: 92vh;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   CERTIFICATE PAGE (certificate.html)
+───────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media screen and (max-width: 992px) {
+  .cert-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 22px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 576px) {
+  .cert-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .cert-img-container {
+    height: 180px;
+  }
+
+  .cert-info {
+    padding: 15px;
+  }
+
+  /* Filter buttons */
+  .portfolio-filters {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 7px 13px;
+    font-size: 0.82rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   CONTACT PAGE (contact.html)
+───────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media screen and (max-width: 992px) {
+  .contact-container {
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+
+  .contact-left,
+  .contact-right {
+    width: 100%;
+    flex: none;
+  }
+
+  /* Glass form card adapts padding */
+  .contact-form {
+    padding: 30px 24px;
+  }
+
+  .comments-section {
+    padding: 25px 20px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 576px) {
+  /* Social cards: 1 column */
+  .social-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .social-card {
+    padding: 16px;
+  }
+
+  .contact-form {
+    padding: 24px 16px;
+  }
+
+  .contact-form h3 {
+    font-size: 1.3rem !important;
+  }
+
+  /* Comment list max height shorter on mobile */
+  .comment-list {
+    max-height: 220px;
+  }
+
+  /* Rating stars bigger for touch targets */
+  .rating-input {
+    font-size: 1.6rem;
+    gap: 10px;
+  }
+
+  /* Form controls full width */
+  .form-control {
+    padding: 13px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   SHARED UTILITIES — Back to top, footer
+───────────────────────────────────────────────────────── */
+@media screen and (max-width: 768px) {
+  .back-to-top {
+    bottom: 18px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  footer {
+    padding: 22px 16px;
+    font-size: 0.88rem;
+  }
+
+  /* Buttons scale slightly on mobile */
+  .btn {
+    padding: 11px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.88rem;
   }
 }
