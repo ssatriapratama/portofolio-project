@@ -350,80 +350,87 @@
    EXPERIENCE PAGE (experience.html)
 ───────────────────────────────────────────────────────── */
 
-@media screen and (max-width: 768px) {
-  /* Single-column timeline on mobile */
+@media screen and (max-width: 992px) {
+  /* Single-column timeline on tablet & mobile */
   .timeline {
     padding: 20px 0;
+    margin: 0 auto;
   }
 
   .timeline::after {
-    left: 18px;
-    margin-left: 0;
+    left: 20px !important;
+    margin-left: 0 !important;
   }
 
   /* All items full-width, shifted right of the line */
   .timeline-item {
     width: 100% !important;
     left: 0 !important;
-    padding-left: 55px;
-    padding-right: 12px;
+    padding-left: 55px !important;
+    padding-right: 0 !important;
+    margin-bottom: 30px;
   }
 
   /* Remove horizontal arrow connectors */
   .timeline-item::before {
-    display: none;
+    display: none !important;
   }
 
-  /* Move circle dots to left side */
+  /* Move circle dots to left side and align with line (line is at 20px, width 4px) */
+  /* Dot is 18px, centered at 11 + 9 = 20px */
   .timeline-item::after {
-    left: 8px !important;
+    left: 11px !important;
     right: auto !important;
-    width: 18px;
-    height: 18px;
+    width: 22px !important;
+    height: 22px !important;
+    top: 15px !important;
   }
 
   /* Cards keep glass + neon style */
   .timeline-content {
-    padding: 16px 18px;
+    padding: 18px 20px !important;
   }
 
   .timeline-content h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .timeline-content h4 {
-    font-size: 0.92rem;
+    font-size: 1rem;
   }
 
   .timeline-date {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     padding: 4px 12px;
   }
 
   .experience-img {
-    max-height: 200px;
+    max-height: 250px;
     object-fit: cover;
   }
 
   .click-hint {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .timeline-item {
-    padding-left: 46px;
-    padding-right: 8px;
+@media screen and (max-width: 576px) {
+  .timeline::after {
+    left: 15px !important;
   }
 
-  .timeline::after {
-    left: 13px;
+  .timeline-item {
+    padding-left: 45px !important;
   }
 
   .timeline-item::after {
-    left: 4px !important;
-    width: 16px;
-    height: 16px;
+    left: 7px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+  
+  .timeline-content {
+    padding: 15px !important;
   }
 }
 
