@@ -9,6 +9,28 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
+            // Prevent body scroll when drawer is open
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close nav when a nav link is clicked (mobile UX)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close nav when clicking outside the drawer
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') &&
+                !navLinks.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         });
     }
 
