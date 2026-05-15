@@ -95,60 +95,77 @@
     justify-self: unset;
   }
 
-  /* Slide-in drawer from right — keeps glass + neon border */
+  /* Slide-in drawer from right — enhanced glassmorphism */
   .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 240px;
+    width: 260px;
     height: 100vh;
-    /* Use CSS variables so bg matches current theme */
-    background: var(--bg-surface);
-    border-left: 1px solid var(--border-color);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: var(--bg-glass);
+    border-left: 2px solid var(--primary-color);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 26px;
-    transition: right 0.35s ease;
-    box-shadow: -6px 0 25px rgba(0, 0, 0, 0.25);
+    gap: 20px;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    padding: 60px 0 30px;
+    padding: 80px 0;
   }
 
   .nav-links.active {
     right: 0;
+    box-shadow: -10px 0 40px var(--neon-glow);
   }
 
-  /* Nav link styling: use CSS variables for text so light/dark both work */
   .nav-links a {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 8px 20px;
+    padding: 12px 30px;
     width: 100%;
     text-align: center;
-    border-radius: 8px;
-    transition: var(--transition);
     color: var(--text-primary);
+    position: relative;
+    transition: var(--transition);
   }
 
+  /* Active/Hover state on mobile drawer: Left indicator + light background */
   .nav-links a:hover,
   .nav-links a.active {
-    background: rgba(128, 128, 128, 0.12);
+    background: color-mix(in srgb, var(--primary-color) 10%, transparent);
     color: var(--primary-color);
   }
 
-  /* Dimmed overlay behind drawer — theme-aware opacity */
+  /* Remove desktop underline on mobile drawer */
+  .nav-links a::after {
+    display: none;
+  }
+
+  .nav-links a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 25px;
+    background: var(--primary-color);
+    box-shadow: var(--neon-glow);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* Overlay behind drawer */
   .nav-links.active::before {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
-    width: calc(100% - 240px);
+    width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.5);
     z-index: -1;
   }
 }
