@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Satria Pratama - Contact">
+    <title>Satria Pratama | Contact</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .contact-left,
+        .contact-right {
+            flex: 1;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--bg-surface);
+            padding: 40px;
+            border-radius: 20px;
+            border: var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .error-msg {
+            color: #ff4757;
+            font-size: 0.85rem;
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            display: none;
+        }
+
+        .form-group.error .form-control {
+            border-color: #ff4757;
+        }
+
+        .form-group.error .error-msg {
+            display: block;
+        }
+
+        /* Social Media Cards */
+        .social-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            background: var(--bg-surface);
+            border: var(--glass-border);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-color);
+            transition: var(--transition);
+            transform: scaleY(0);
+            transform-origin: bottom;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .social-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .social-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .social-card:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 30px;
+            background: var(--bg-surface);
+            padding: 30px;
+            border-radius: 20px;
+            border: var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form-inline {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .comment-input,
+        .comment-textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .comment-input:focus,
+        .comment-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* Custom Scrollbar for comments */
+        .comment-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .comment-list::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        .comment-list::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        /* Star Rating */
+        .rating-input {
+            display: flex;
+            gap: 5px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-bottom: -5px;
+            padding-left: 5px;
+        }
+
+        .rating-input i {
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .rating-input i.active {
+            color: #f1c40f;
+            text-shadow: 0 0 5px rgba(241, 196, 15, 0.4);
+        }
+
+        .rating-input i:hover {
+            transform: scale(1.2);
+        }
+
+        .comment-rating {
+            color: #f1c40f;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+
+        .comment-card {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .comment-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media screen and (max-width: 992px) {
+            .contact-container {
+                flex-direction: column-reverse;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .social-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Satria<span>.</span></a>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="profile.html">Profile & Skills</a>
+                <a href="experience.html">Experience</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="certificate.html">Certificates</a>
+                <a href="contact.html" class="active">Contact</a>
+            </nav>
+
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <span id="theme-icon">&#9728;</span>
+                </button>
+                <button class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="section container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+
+            <div class="contact-container">
+
+                <div class="contact-left slide-in-left">
+                    <h3 style="margin-bottom: 20px; font-size: 1.8rem;">Let's Connect</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                        Feel free to reach out for collaborations, freelance projects, or just to say hi! You can
+                        contact me through any of the platforms below.
+                    </p>
+
+                    <div class="social-cards">
+                        <a href="https://www.linkedin.com/in/ssatria-pratama-8836b6352" target="_blank"
+                            class="social-card">
+                            <i class="fa-brands fa-linkedin"></i>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">Connect with me</p>
+                            </div>
+                        </a>
+                        <a href="https://github.com/ssatriapratama" target="_blank" class="social-card">
+                            <i class="fa-brands fa-github"></i>
+                            <div>
+                                <h4>GitHub</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">View my repos</p>
+                            </div>
+                        </a>
+                        <a href="https://instagram.com/ssatria.999" target="_blank" class="social-card">
+                            <i class="fa-brands fa-instagram"></i>
+                            <div>
+                                <h4>Instagram</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">Follow my journey</p>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/628992517700" target="_blank" class="social-card">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">Chat instantly</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="comments-section fade-in">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Public Comments</h4>
+
+                        <form class="comment-form-inline" id="contact-comment-form">
+                            <input type="text" class="comment-input" placeholder="Nama Anda" required
+                                id="contact-comment-name">
+                                
+                            <div class="rating-input" id="star-rating">
+                                <i class="fa-solid fa-star" data-rating="1"></i>
+                                <i class="fa-solid fa-star" data-rating="2"></i>
+                                <i class="fa-solid fa-star" data-rating="3"></i>
+                                <i class="fa-solid fa-star" data-rating="4"></i>
+                                <i class="fa-solid fa-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="contact-comment-rating" value="5">
+
+                            <textarea class="comment-textarea" rows="2" placeholder="Tulis komentar..." required
+                                id="contact-comment-text"></textarea>
+                            <button type="submit" class="btn btn-outline"
+                                style="align-self: flex-start; padding: 8px 20px; font-size: 0.85rem;">Post
+                                Comment</button>
+                        </form>
+
+                        <div class="comment-list" id="contact-comment-list">
+                            <div class="comment-card">
+                                <div class="comment-author">Ahmad Reza</div>
+                                <div class="comment-rating">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="comment-text">Desain websitenya sangat modern! Saya suka efek
+                                    glassmorphismnya.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-right slide-in-right">
+                    <form id="contact-form" class="contact-form glass">
+                        <h3
+                            style="margin-bottom: 25px; font-size: 1.5rem; text-align: center; color: var(--primary-color);">
+                            Send a Message</h3>
+
+                        <div class="form-group" id="name-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="John Doe">
+                            <span class="error-msg">Name is required</span>
+                        </div>
+
+                        <div class="form-group" id="email-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="john@example.com">
+                            <span class="error-msg">Valid email is required</span>
+                        </div>
+
+                        <div class="form-group" id="message-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-control"
+                                placeholder="Write your message here..."></textarea>
+                            <span class="error-msg">Message cannot be empty</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fa-regular fa-paper-plane" style="margin-right: 8px;"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Satria Pratama. All rights reserved. Designed with <span>&hearts;</span></p>
+    </footer>
+
+    <!-- Back to Top -->
+    <a href="#" id="back-to-top" class="back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+        // Form Validation Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const msgInput = document.getElementById('message');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                let isValid = true;
+
+                // Validate Name
+                if (nameInput.value.trim() === '') {
+                    document.getElementById('name-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    document.getElementById('name-group').classList.remove('error');
+                }
+
+                // Validate Email
+                const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                if (!emailInput.value.match(emailPattern)) {
+                    document.getElementById('email-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    document.getElementById('email-group').classList.remove('error');
+                }
+
+                // Validate Message
+                if (msgInput.value.trim() === '') {
+                    document.getElementById('message-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    document.getElementById('message-group').classList.remove('error');
+                }
+
+                if (isValid) {
+                    // Simulate form submission
+                    const btn = form.querySelector('button');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent Successfully!';
+                        btn.classList.remove('btn-primary');
+                        btn.style.background = '#2ecc71';
+                        btn.style.boxShadow = '0 0 15px #2ecc71';
+
+                        form.reset();
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.classList.add('btn-primary');
+                            btn.style.background = '';
+                            btn.style.boxShadow = '';
+                        }, 3000);
+                    }, 1500);
+                }
+            });
+
+            // Star Rating Logic
+            const starContainer = document.getElementById('star-rating');
+            let currentRating = 5;
+
+            if (starContainer) {
+                const stars = starContainer.querySelectorAll('i');
+
+                // Initialize stars
+                updateStars(currentRating);
+
+                stars.forEach(star => {
+                    star.addEventListener('click', () => {
+                        currentRating = parseInt(star.getAttribute('data-rating'));
+                        document.getElementById('contact-comment-rating').value = currentRating;
+                        updateStars(currentRating);
+                    });
+
+                    star.addEventListener('mouseenter', () => {
+                        updateStars(parseInt(star.getAttribute('data-rating')));
+                    });
+                });
+
+                starContainer.addEventListener('mouseleave', () => {
+                    updateStars(currentRating);
+                });
+
+                function updateStars(rating) {
+                    stars.forEach(s => {
+                        if (parseInt(s.getAttribute('data-rating')) <= rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                }
+            }
+
+            // Comment Submission Logic
+            const commentForm = document.getElementById('contact-comment-form');
+            const commentList = document.getElementById('contact-comment-list');
+
+            if (commentForm) {
+                commentForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const name = document.getElementById('contact-comment-name').value;
+                    const text = document.getElementById('contact-comment-text').value;
+                    const rating = document.getElementById('contact-comment-rating').value;
+
+                    // Generate stars HTML
+                    let starsHtml = '';
+                    for (let i = 0; i < 5; i++) {
+                        if (i < rating) {
+                            starsHtml += '<i class="fa-solid fa-star"></i>';
+                        } else {
+                            starsHtml += '<i class="fa-regular fa-star" style="color: var(--text-secondary);"></i>';
+                        }
+                    }
+
+                    // Create new comment card
+                    const newComment = document.createElement('div');
+                    newComment.className = 'comment-card fade-in';
+                    newComment.innerHTML = `
+                        <div class="comment-author">${name}</div>
+                        <div class="comment-rating">${starsHtml}</div>
+                        <div class="comment-text">${text}</div>
+                    `;
+
+                    // Add to list
+                    commentList.prepend(newComment);
+
+                    // Reset form and rating
+                    commentForm.reset();
+                    currentRating = 5;
+                    document.getElementById('contact-comment-rating').value = 5;
+                    if (typeof updateStars === 'function') updateStars(5);
+
+                    // Trigger fade in
+                    setTimeout(() => newComment.classList.add('appear'), 50);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

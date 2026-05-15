@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Satria Pratama - Profile & Skills">
+    <title>Satria Pratama | Profile</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .profile-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        /* 3D Flip Card */
+        .flip-card {
+            background-color: transparent;
+            width: 350px;
+            height: 450px;
+            perspective: 1000px;
+            flex-shrink: 0;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            /* Safari */
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            background-color: var(--bg-surface);
+            color: black;
+            box-shadow: var(--neon-glow);
+        }
+
+        .flip-card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--bg-surface), var(--primary-color));
+            color: var(--text-primary);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .flip-card-back h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .flip-card-back p {
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        /* About Text */
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .skill-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Biodata Styles */
+        .biodata-list {
+            text-align: left;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        .bio-item {
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .bio-item span {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-block;
+            width: 70px;
+        }
+
+        /* Skill Filters */
+        .skill-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .skill-filter-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--text-primary);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .skill-filter-btn.active,
+        .skill-filter-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 60px;
+            background: var(--bg-surface);
+            padding: 30px;
+            border-radius: 20px;
+            border: var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .comment-input,
+        .comment-textarea {
+            width: 100%;
+            padding: 15px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .comment-input:focus,
+        .comment-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .comment-card {
+            background: var(--bg-color);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .comment-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        @media screen and (max-width: 992px) {
+            .profile-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Satria<span>.</span></a>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="profile.html" class="active">Profile & Skills</a>
+                <a href="experience.html">Experience</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="certificate.html">Certificates</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <span id="theme-icon">&#9728;</span>
+                </button>
+                <button class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="section container">
+            <h2 class="section-title fade-in">About Me</h2>
+
+            <div class="profile-container">
+                <div class="flip-card slide-in-left">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- Foto Profil -->
+                            <img src="assets/images/Pratama.jpg" alt="Satria Pratama"
+                                onerror="this.src='https://ui-avatars.com/api/?name=Satria+Pratama&background=random&size=512'">
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 style="margin-bottom: 5px; color: var(--primary-color);">Satria Pratama</h3>
+                            <div class="biodata-list">
+                                <div class="bio-item"><span>TTL:</span> Jakarta, 1 Sept 2007</div>
+                                <div class="bio-item"><span>Status:</span> Mahasiswa TI</div>
+                                <div class="bio-item"><span>Fokus:</span> Web Dev & Cyber Sec</div>
+                                <div class="bio-item"><span>Status:</span> Freelance / Part-time</div>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <i class="fa-solid fa-laptop-code"
+                                    style="font-size: 2rem; color: var(--text-primary);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-content slide-in-right">
+                    <h2>My Journey</h2>
+                    <p>
+                        Halo! Saya Satria Pratama, seorang Mahasiswa Teknik Informatika yang memiliki passion besar
+                        dalam
+                        mengembangkan kemampuan saya dibidang teknologi. Perjalanan saya di bidang teknologi berawal
+                        dari
+                        rasa penasaran, yang kemudian berkembang menjadi jalur karier yang saya tekuni dengan serius.
+                    </p>
+                    <p>
+                        Saya menikmati proses belajar dan terus mengembangkan kemampuan saya, terutama dalam hal
+                        pemrograman,
+                        keamanan siber, serta analisis data. Bagi saya, teknologi adalah kunci untuk memecahkan masalah
+                        dan
+                        memberikan dampak positif bagi banyak orang.
+                    </p>
+                    <p>
+                        Saya bercita-cita untuk dapat memberikan kontribusi nyata dalam industri teknologi Indonesia,
+                        menciptakan solusi yang inovatif dan dapat membantu meningkatkan kualitas hidup masyarakat.
+                    </p>
+                    <a href="assets/cv.pdf" class="btn btn-primary" style="margin-top: 20px;" target="_blank"
+                        download="CV_Satria_Pratama.pdf">Download CV</a>
+                </div>
+            </div>
+
+            <h2 class="section-title fade-in" style="margin-top: 80px;">My Skills</h2>
+
+            <div class="skill-filters fade-in">
+                <button class="skill-filter-btn active" data-filter="all">Semua</button>
+                <button class="skill-filter-btn" data-filter="frontend">Frontend</button>
+                <button class="skill-filter-btn" data-filter="backend">Backend</button>
+                <button class="skill-filter-btn" data-filter="editor">Editor</button>
+                <button class="skill-filter-btn" data-filter="data">Pengolahan Data</button>
+                <button class="skill-filter-btn" data-filter="ai">AI</button>
+                <button class="skill-filter-btn" data-filter="tools">Tools</button>
+            </div>
+
+            <div class="skills-grid" id="skills-container">
+                <!-- Frontend -->
+                <div class="skill-card glass fade-in skill-item" data-category="frontend" style="cursor: pointer;"
+                    onclick="window.open('https://developer.mozilla.org/en-US/docs/Web/HTML', '_blank')">
+                    <i class="fa-brands fa-html5 skill-icon" style="color: #e34f26;"></i>
+                    <h4 class="skill-title">HTML & CSS</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="frontend" style="cursor: pointer;"
+                    onclick="window.open('https://developer.mozilla.org/en-US/docs/Web/JavaScript', '_blank')">
+                    <i class="fa-brands fa-js skill-icon" style="color: #f7df1e;"></i>
+                    <h4 class="skill-title">JavaScript</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="frontend" style="cursor: pointer;"
+                    onclick="window.open('https://react.dev/', '_blank')">
+                    <i class="fa-brands fa-react skill-icon" style="color: #61dafb;"></i>
+                    <h4 class="skill-title">React.js</h4>
+                </div>
+
+                <!-- Backend -->
+                <div class="skill-card glass fade-in skill-item" data-category="backend" style="cursor: pointer;"
+                    onclick="window.open('https://www.php.net/', '_blank')">
+                    <i class="fa-brands fa-php skill-icon" style="color: #777bb4;"></i>
+                    <h4 class="skill-title">PHP</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="backend" style="cursor: pointer;"
+                    onclick="window.open('https://nodejs.org/', '_blank')">
+                    <i class="fa-brands fa-node-js skill-icon" style="color: #339933;"></i>
+                    <h4 class="skill-title">Node.js</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="backend" style="cursor: pointer;"
+                    onclick="window.open('https://www.mysql.com/', '_blank')">
+                    <i class="fa-solid fa-database skill-icon" style="color: #4479a1;"></i>
+                    <h4 class="skill-title">MySQL / SQL</h4>
+                </div>
+
+                <!-- Editor / UI/UX -->
+                <div class="skill-card glass fade-in skill-item" data-category="editor" style="cursor: pointer;"
+                    onclick="window.open('https://www.figma.com/', '_blank')">
+                    <i class="fa-brands fa-figma skill-icon" style="color: #f24e1e;"></i>
+                    <h4 class="skill-title">Figma</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="editor" style="cursor: pointer;"
+                    onclick="window.open('https://www.adobe.com/products/photoshop.html', '_blank')">
+                    <i class="fa-solid fa-pen-nib skill-icon" style="color: #31a8ff;"></i>
+                    <h4 class="skill-title">Photoshop / Editor</h4>
+                </div>
+
+                <!-- Pengolahan Data -->
+                <div class="skill-card glass fade-in skill-item" data-category="data" style="cursor: pointer;"
+                    onclick="window.open('https://www.python.org/', '_blank')">
+                    <i class="fa-brands fa-python skill-icon" style="color: #3776ab;"></i>
+                    <h4 class="skill-title">Python (Data)</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="data" style="cursor: pointer;"
+                    onclick="window.open('https://www.microsoft.com/en-us/microsoft-365/excel', '_blank')">
+                    <i class="fa-solid fa-chart-pie skill-icon" style="color: #107c41;"></i>
+                    <h4 class="skill-title">Excel / Spreadsheets</h4>
+                </div>
+
+                <!-- AI -->
+                <div class="skill-card glass fade-in skill-item" data-category="ai" style="cursor: pointer;"
+                    onclick="window.open('https://chat.openai.com/', '_blank')">
+                    <i class="fa-solid fa-robot skill-icon" style="color: #10a37f;"></i>
+                    <h4 class="skill-title">ChatGPT / LLMs</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="ai" style="cursor: pointer;"
+                    onclick="window.open('https://learnprompting.org/', '_blank')">
+                    <i class="fa-solid fa-brain skill-icon" style="color: #ff6b6b;"></i>
+                    <h4 class="skill-title">Prompt Engineering</h4>
+                </div>
+
+                <!-- Tools -->
+                <div class="skill-card glass fade-in skill-item" data-category="tools" style="cursor: pointer;"
+                    onclick="window.open('https://github.com/', '_blank')">
+                    <i class="fa-brands fa-git-alt skill-icon" style="color: #f05032;"></i>
+                    <h4 class="skill-title">Git & GitHub</h4>
+                </div>
+                <div class="skill-card glass fade-in skill-item" data-category="tools" style="cursor: pointer;"
+                    onclick="window.open('https://www.gnu.org/software/bash/', '_blank')">
+                    <i class="fa-solid fa-terminal skill-icon" style="color: #a0aec0;"></i>
+                    <h4 class="skill-title">Terminal / Bash</h4>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Satria Pratama. All rights reserved. Designed with <span>&hearts;</span></p>
+    </footer>
+
+    <!-- Back to Top -->
+    <a href="#" id="back-to-top" class="back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Skill Filtering Logic
+            const filterBtns = document.querySelectorAll('.skill-filter-btn');
+            const skillItems = document.querySelectorAll('.skill-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    skillItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

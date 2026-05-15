@@ -1,0 +1,53 @@
+/* css/responsive.css */
+@media screen and (max-width: 992px) {
+  .section-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background: var(--bg-surface);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s ease;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+  
+  .theme-toggle {
+    margin-top: 20px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .btn {
+    padding: 10px 24px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .section {
+    padding: 100px 0 50px;
+  }
+}

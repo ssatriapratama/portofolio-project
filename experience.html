@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Satria Pratama - Experience">
+    <title>Satria Pratama | Experience</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        /* The vertical line */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            box-shadow: var(--neon-glow);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* The circles on the timeline */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--bg-surface);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* Left Side */
+        .left {
+            left: 0;
+        }
+
+        /* Right Side */
+        .right {
+            left: 50%;
+        }
+
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--bg-glass);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--bg-glass);
+        }
+
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--bg-glass);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--bg-glass) transparent transparent;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            position: relative;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+            border-color: var(--primary-color);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .timeline-content p {
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Expanding Details */
+        .timeline-content.clickable {
+            cursor: pointer;
+        }
+
+        .experience-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .experience-details.active {
+            display: block;
+        }
+
+        .experience-img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .click-hint {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            margin-top: 10px;
+            display: inline-block;
+            font-style: italic;
+        }
+
+        /* Expanding Details */
+        .timeline-content.clickable {
+            cursor: pointer;
+        }
+
+        .experience-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .experience-details.active {
+            display: block;
+        }
+
+        .experience-img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .click-hint {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            margin-top: 10px;
+            display: inline-block;
+            font-style: italic;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid var(--bg-glass);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--bg-glass) transparent transparent;
+            }
+
+            .left::after,
+            .right::after {
+                left: 21px;
+            }
+
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Satria<span>.</span></a>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="profile.html">Profile & Skills</a>
+                <a href="experience.html" class="active">Experience</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="certificate.html">Certificates</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <span id="theme-icon">&#9728;</span>
+                </button>
+                <button class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="section container">
+            <h2 class="section-title fade-in">Experience & Journey</h2>
+
+            <div class="timeline">
+
+                <!-- Item 1 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content glass clickable" onclick="toggleDetails(this)">
+                        <span class="timeline-date">2025 - Present</span>
+                        <h3>Mahasiswa Teknik Informatika</h3>
+                        <h4>Universitas Gunadarma</h4>
+                        <p>Saya memulai Karier Akademik di Universitas Gunadarma dengan jurusan Teknik Informatika
+                            karena saya tertarik dengan dunia teknologi dan ingin menjadi seorang software engineer.
+                            juga sebagai modal saya untuk meningkatkan kemampuan saya dibidang teknologi.</p>
+                        <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk lihat
+                            dokumentasi</span>
+
+                        <div class="experience-details">
+                            <img src="assets/images/gundar.jpg" alt="Dokumentasi Kerja" class="experience-img">
+                            <p style="font-size: 0.9rem;"><strong>Dokumentasi:</strong> Ketika Saya menjadi mahasiswa
+                                universitas
+                                Gunadarma.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content glass clickable" onclick="toggleDetails(this)">
+                        <span class="timeline-date">2024 - 2025</span>
+                        <h3>Pemecahan rekor MOST APP BUILD BY AI WITH AWS</h3>
+                        <h4>GUINNESS WORLD RECORDS</h4>
+                        <p>Pemecahan rekor pembuatan aplikasi terbanyak dengan AI terbanyak dalam waktu 24 jam, yang
+                            diikuti oleh Siswa SMAN 4 Kota Depok.</p>
+                        <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk lihat
+                            dokumentasi</span>
+
+                        <div class="experience-details">
+                            <img src="assets/images/AWS.jpg" alt="Dokumentasi Kerja" class="experience-img">
+                            <p style="font-size: 0.9rem;"><strong>Dokumentasi:</strong>ketika mendesain UI/UX dan
+                                menyiapkan untuk membuat projek.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content glass clickable" onclick="toggleDetails(this)">
+                        <span class="timeline-date">2023 - 2024</span>
+                        <h3>Event Organizer</h3>
+                        <h4>Kompetisi Lomba Hadroh Wasilah Babakan 2024</h4>
+                        <p>Bertanggung jawab penuh dalam menyukseskan acara kompetisi lomba hadroh yang diselenggarakan
+                            oleh Wasilah Babakan. </p>
+                        <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk lihat
+                            dokumentasi</span>
+
+                        <div class="experience-details">
+                            <img src="assets/images/wasilah.jpg" alt="Dokumentasi Kerja" class="experience-img">
+                            <p style="font-size: 0.9rem;"><strong>Dokumentasi:</strong> Ketika Acara telah sukses
+                                diadakan sampai akhir acara.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content glass clickable" onclick="toggleDetails(this)">
+                        <span class="timeline-date">2022 - 2025</span>
+                        <h3>Ketua Penyelenggara Acara Karang Taruna </h3>
+                        <h4>Kawasan Rt 07/Rw 03</h4>
+                        <p>Bertanggung jawab penuh dalam menyukseskan acara yang diadakan Karang Taruna. </p>
+                        <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk lihat
+                            dokumentasi</span>
+
+                        <div class="experience-details">
+                            <img src="assets/images/Katar.jpg" alt="Dokumentasi Kerja" class="experience-img">
+                            <p style="font-size: 0.9rem;"><strong>Dokumentasi:</strong> Ketika acara Sukses Berjalan
+                                Sampai Hari H.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content glass clickable" onclick="toggleDetails(this)">
+                        <span class="timeline-date">2023</span>
+                        <h3>Awal Masuk Jenjang SMA</h3>
+                        <h4>SMAN 4 Kota Depok</h4>
+                        <p>Awal memasuki jenjang SMA, Saya berusaha untuk beradaptasi dengan lingkungan sekolah dan
+                            mengikuti berbagai kegiatan untuk mengembangkan diri.</p>
+                        <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk lihat
+                            dokumentasi</span>
+
+                        <div class="experience-details">
+                            <img src="assets/images/10.jpg" alt="Dokumentasi Kerja" class="experience-img">
+                            <p style="font-size: 0.9rem;"><strong>Dokumentasi:</strong> Foto Dokumentasi Saat Saya Kelas
+                                10.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Satria Pratama. All rights reserved. Designed with <span>&hearts;</span></p>
+    </footer>
+
+    <!-- Back to Top -->
+    <a href="#" id="back-to-top" class="back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+        // Toggle Experience Details
+        function toggleDetails(element) {
+            const details = element.querySelector('.experience-details');
+            const hint = element.querySelector('.click-hint');
+
+            if (details.classList.contains('active')) {
+                details.classList.remove('active');
+                hint.innerHTML = '<i class="fa-solid fa-hand-pointer"></i> Klik untuk lihat dokumentasi';
+            } else {
+                details.classList.add('active');
+                hint.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Tutup dokumentasi';
+            }
+        }
+    </script>
+</body>
+
+</html>
