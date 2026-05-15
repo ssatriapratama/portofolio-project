@@ -252,12 +252,24 @@
         @media screen and (max-width: 992px) {
             .contact-container {
                 flex-direction: column-reverse;
+                gap: 40px;
+            }
+            .contact-form,
+            .comments-section {
+                padding: 30px 20px;
             }
         }
 
         @media screen and (max-width: 576px) {
             .social-cards {
                 grid-template-columns: 1fr;
+            }
+            .contact-form h3 {
+                font-size: 1.3rem !important;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.95rem;
             }
         }
     </style>
